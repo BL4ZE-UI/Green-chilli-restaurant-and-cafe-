@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Green Chili Multicuisine Family Restaurant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ================================
+       THEME VARIABLES
+       ================================ */
+    :root {
+      --green: #1b7a3e;
+      --green-dark: #145c2e;
+      --green-soft: #e8f5ed;
+      --green-border: #c5e6d1;
+      --red: #d92b2b;
+      --red-dark: #b51f1f;
+      --white: #ffffff;
+      --bg: #f7faf8;
+      --text: #1c2420;
+      --text-muted: #5a6860;
+      --border: #e2e8e4;
+      --shadow: 0 4px 16px rgba(20, 92, 46, 0.08);
+      --radius: 12px;
+      --header-h: 68px;
+    }
+
+    /* ================================
+       RESET & BASE
+       ================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      overflow-x: hidden;
+      padding-bottom: 84px; /* Space for floating cart bar */
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    button, .btn {
+      min-height: 44px;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: background-color 0.18s ease, transform 0.12s ease, border-color 0.18s ease;
+    }
+
+    button:active, .btn:active {
+      transform: scale(0.98);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    section {
+      padding: 40px 0;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .section-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    /* ================================
+       1) HEADER & HERO
+       ================================ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      min-height: var(--header-h);
+      display: flex;
+      align-items: center;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 0;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      flex-shrink: 0;
+    }
+
+    .brand-green {
+      color: var(--green);
+    }
+
+    .brand-red {
+      color: var(--red);
+      margin-left: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 8px 10px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 8px;
+      transition: background-color 0.18s ease, color 0.18s ease;
+    }
+
+    .nav-links a:hover {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .cart-header-btn {
+      background: var(--green);
+      color: var(--white);
+      padding: 0 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.88rem;
+      flex-shrink: 0;
+    }
+
+    .cart-header-btn:hover {
+      background: var(--green-dark);
+    }
+
+    .cart-badge {
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      min-width: 22px;
+      height: 22px;
+      padding: 0 6px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(180deg, var(--green-soft) 0%, var(--white) 100%);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      padding: 44px 0 52px;
+    }
+
+    .hero h1 {
+      font-size: 1.85rem;
+      line-height: 1.25;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
+    .hero-tagline {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+
+    .hero-highlights {
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .highlight-pill {
+      background: var(--white);
+      border: 1px solid var(--green-border);
+      color: var(--green-dark);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      padding: 12px 24px;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--red-dark);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--green);
+      border: 2px solid var(--green);
+    }
+
+    .btn-secondary:hover {
+      background: var(--green-soft);
+    }
+
+    /* ================================
+       2) FULL MENU & ORDERING
+       ================================ */
+    .menu-controls {
+      position: sticky;
+      top: var(--header-h);
+      z-index: 80;
+      background: var(--bg);
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+
+    .search-wrap {
+      margin-bottom: 10px;
+    }
+
+    .search-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--white);
+      color: var(--text);
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(27, 122, 62, 0.12);
+    }
+
+    .category-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .category-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-btn {
+      flex-shrink: 0;
+      background: var(--white);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0 14px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border-radius: 999px;
+    }
+
+    .cat-btn:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .cat-btn.active {
+      background: var(--green);
+      color: var(--white);
+      border-color: var(--green);
+    }
+
+    .menu-category {
+      margin-bottom: 28px;
+      scroll-margin-top: 190px;
+    }
+
+    .menu-category-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--green-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .menu-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+    }
+
+    .item-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .item-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      word-wrap: break-word;
+    }
+
+    .item-price {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--green);
+      margin-top: 2px;
+    }
+
+    .item-price.ask {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .add-btn {
+      background: var(--green-soft);
+      color: var(--green-dark);
+      border: 1px solid var(--green-border);
+      padding: 0 18px;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .add-btn:hover {
+      background: var(--green);
+      color: var(--white);
+      border-color: var(--green);
+    }
+
+    .add-btn:disabled {
+      background: #f1f3f2;
+      color: #9aa59f;
+      border-color: var(--border);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .qty-control {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--green);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--white);
+      flex-shrink: 0;
+    }
+
+    .qty-btn {
+      width: 44px;
+      min-height: 44px;
+      background: var(--green);
+      color: var(--white);
+      border-radius: 0;
+      font-size: 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qty-btn:hover {
+      background: var(--green-dark);
+    }
+
+    .qty-value {
+      min-width: 34px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      padding: 0 4px;
+    }
+
+    .empty-search {
+      text-align: center;
+      padding: 36px 16px;
+      color: var(--text-muted);
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    /* Floating Bottom Cart Bar */
+    .floating-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 120;
+      background: var(--green-dark);
+      color: var(--white);
+      padding: 10px 16px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.16);
+      transform: translateY(110%);
+      transition: transform 0.22s ease;
+    }
+
+    .floating-bar.visible {
+      transform: translateY(0);
+    }
+
+    .floating-bar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .floating-summary {
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .floating-summary span {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+
+    .view-order-btn {
+      background: var(--red);
+      color: var(--white);
+      padding: 0 20px;
+      font-size: 0.92rem;
+      flex-shrink: 0;
+    }
+
+    .view-order-btn:hover {
+      background: var(--red-dark);
+    }
+
+    /* Slide-Up Order Drawer */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .drawer-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .order-drawer {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 210;
+      background: var(--white);
+      border-radius: 18px 18px 0 0;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(100%);
+      transition: transform 0.25s ease;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .order-drawer.open {
+      transform: translateY(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .drawer-header h2 {
+      font-size: 1.15rem;
+      color: var(--text);
+    }
+
+    .close-drawer-btn {
+      width: 44px;
+      min-height: 44px;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 1.4rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-drawer-btn:hover {
+      background: var(--border);
+    }
+
+    .drawer-body {
+      padding: 16px 18px 24px;
+      overflow-y: auto;
+    }
+
+    .cart-empty-msg {
+      text-align: center;
+      padding: 28px 12px;
+      color: var(--text-muted);
+    }
+
+    .cart-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .cart-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-row-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cart-row-name {
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .cart-row-unit {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .cart-row-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .cart-line-total {
+      min-width: 60px;
+      text-align: right;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--green-dark);
+    }
+
+    .cart-grand-total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--green-soft);
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 18px;
+    }
+
+    /* ================================
+       FORMS (ORDER & RESERVATION)
+       ================================ */
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .form-control {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--white);
+      color: var(--text);
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(27, 122, 62, 0.12);
+    }
+
+    .form-control.invalid {
+      border-color: var(--red);
+    }
+
+    textarea.form-control {
+      min-height: 76px;
+      resize: vertical;
+    }
+
+    .error-msg {
+      color: var(--red);
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-top: 4px;
+      min-height: 18px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .whatsapp-btn {
+      width: 100%;
+      background: var(--green);
+      color: var(--white);
+      font-size: 0.98rem;
+      padding: 12px 20px;
+      margin-top: 4px;
+    }
+
+    .whatsapp-btn:hover {
+      background: var(--green-dark);
+    }
+
+    /* ================================
+       3) TABLE RESERVATION
+       ================================ */
+    .reserve-section {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+
+    .reserve-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .people-stepper {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--white);
+    }
+
+    .people-stepper .qty-btn {
+      width: 48px;
+      min-height: 44px;
+    }
+
+    .people-count {
+      min-width: 56px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .reserve-note {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* ================================
+       4) FOOTER
+       ================================ */
+    .site-footer {
+      background: var(--green-dark);
+      color: var(--white);
+      padding: 36px 0 44px;
+      text-align: center;
+    }
+
+    .footer-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .footer-text {
+      font-size: 0.92rem;
+      opacity: 0.92;
+      margin-bottom: 12px;
+    }
+
+    .footer-phones {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .footer-phone-link {
+      color: var(--white);
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.14);
+      padding: 8px 16px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background-color 0.18s ease;
+    }
+
+    .footer-phone-link:hover {
+      background: rgba(255, 255, 255, 0.24);
+    }
+
+    .footer-delivery {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.84rem;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 999px;
+    }
+
+    /* ================================
+       DESKTOP BREAKPOINTS
+       ================================ */
+    @media (min-width: 640px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .form-row-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .reserve-card {
+        padding: 28px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        gap: 12px;
+      }
+
+      .nav-links a {
+        font-size: 0.95rem;
+        padding: 8px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================
+       1) HEADER
+       ================================ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="brand-link" aria-label="Green Chili Home">
+        <span class="brand-green">Green</span><span class="brand-red">Chili</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#menu">Menu</a>
+        <a href="#reserve">Reserve</a>
+        <button type="button" class="cart-header-btn" id="headerCartBtn" aria-label="Open order cart">
+          Cart <span class="cart-badge" id="headerCartCount">0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <h1>Green Chili Multicuisine Family Restaurant</h1>
+        <p class="hero-tagline">Multicuisine Family Restaurant</p>
+        <div class="hero-highlights">
+          <span class="highlight-pill">Veg. Thali ₹60</span>
+          <span class="highlight-pill">Home Delivery Available</span>
+        </div>
+        <div class="hero-actions">
+          <a href="#menu" class="btn btn-primary">Order Now</a>
+          <a href="#reserve" class="btn btn-secondary">Reserve a Table</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================
+         2) FULL MENU WITH ORDERING
+         ================================ -->
+    <section id="menu">
+      <div class="container">
+        <h2 class="section-title">Our Menu</h2>
+        <p class="section-subtitle">Tap Add to build your order and send it directly on WhatsApp.</p>
+      </div>
+
+      <div class="menu-controls">
+        <div class="container">
+          <div class="search-wrap">
+            <input
+              type="search"
+              id="menuSearch"
+              class="search-input"
+              placeholder="Search dishes (e.g. Biryani, Paneer, Fish, Nan)..."
+              aria-label="Search menu items"
+            >
+          </div>
+          <div class="category-bar" id="categoryBar" role="tablist" aria-label="Menu categories"></div>
+        </div>
+      </div>
+
+      <div class="container" id="menuContainer"></
